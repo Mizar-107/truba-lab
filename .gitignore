@@ -1,0 +1,8 @@
+*.ovpn
+*.pem
+id_*
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+Thumbs.db
