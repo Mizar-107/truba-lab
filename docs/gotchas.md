@@ -16,8 +16,8 @@ The submit filter (`job_submit.lua`) explains rejections in Turkish on **stderr*
 
 | Partition | Limit | Notes |
 |---|---|---|
-| `debug` | 4 h | **the test queue** — takes 1-core jobs; mixed akya/barbun/hamsi/orfoz nodes |
-| `orfoz`* (default) | 3 d | main CPU fleet; 56/112-core rule above — a bare `sbatch` of a small job **fails by default** |
+| `debug` | 4 h | **the test queue** — takes 1-core jobs *and* full-node `-c 112` jobs (verified, job 6222363); mixed akya/barbun/hamsi/orfoz nodes |
+| `orfoz`* (default) | 3 d | main CPU fleet — 2× Xeon Platinum 8480+ per node (112 cores, HT off, 8 NUMA); the 56/112 rule is socket/full-node granularity. A bare `sbatch` of a small job **fails by default** |
 | `barbun` | 3 d | 2× Xeon Gold 6148 per node (40 cores) |
 | `hamsi` | 3 d | general CPU |
 | `smp` | 3 d | `orkinos1`, single fat-memory node |
@@ -32,7 +32,7 @@ The submit filter (`job_submit.lua`) explains rejections in Turkish on **stderr*
 
 ## Windows client pitfalls
 
-- **`ssh.exe` dies silently without a console.** Run from automation (no attached console) it exits 255 with zero output — not even `-vvv` to a redirected file. Fix: use a real terminal, or route through WSL (`wsl -d <distro> -- ssh …`). WSL note: copy the key out of `/mnt/c/...` (`cp … /tmp/k && chmod 600 /tmp/k`) or ssh refuses the 0777 drvfs permissions.
+- **`ssh.exe` dies silently without a console.** Run from automation (no attached console) it exits 255 with zero output — not even `-vvv` to a redirected file. Fix: use a real terminal, or route through WSL (`wsl -d <distro> -- ssh …`). WSL notes: copy the key out of `/mnt/c/...` (`cp … /tmp/k && chmod 600 /tmp/k`) or ssh refuses the 0777 drvfs permissions — and **`/tmp` is wiped whenever the WSL VM idles out**, so re-copy the key at the start of every automated invocation, not once per session.
 - **Don't pipe into ssh for key installation** — `type key.pub | ssh … "cat >> authorized_keys"` hangs: with stdin redirected, the password prompt never renders. Use the two-step `scp` + `ssh` from [setup.md](setup.md).
 - **Turkish characters in paths** (`Masaüstü`) mangle across encoding boundaries in automation. From WSL, glob past them: `/mnt/c/Users/<you>/OneDrive/Masa*/...`.
 

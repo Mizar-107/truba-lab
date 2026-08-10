@@ -3,7 +3,7 @@
 #   usage: TRUBA_USER=<user> tools/run.sh <experiment-dir> <script.slurm> [extra sbatch args...]
 #   env:   TRUBA_USER (required), TRUBA_HOST (default 172.16.6.11), TRUBA_KEY (default ~/.ssh/id_ed25519)
 #   example: TRUBA_USER=me tools/run.sh experiments/002-pi-scaling job.slurm -p debug
-# Status: written 2026-08-10, not yet field-tested (BACKLOG 008).
+# Status: field-tested 2026-08-10 (002 — shipped sources and submitted job 6222363 first try).
 set -euo pipefail
 
 [ $# -ge 2 ] || { echo "usage: TRUBA_USER=<user> $0 <experiment-dir> <script.slurm> [sbatch args...]" >&2; exit 1; }
