@@ -44,7 +44,14 @@ Interconnect (from 007): orfoz nodes sit on **NDR 400 Gb/s** InfiniBand; barbun/
 
 - **`module: command not found` inside sbatch scripts** — batch shells are not login shells here. Start every job script that loads modules with **`#!/bin/bash -l`**.
 - **`srun` + OpenMPI = 112 independent singletons.** This Slurm has no PMIx plugin (`srun --mpi=list` lacks `pmix`), so `srun ./yourmpi` starts N separate 1-rank worlds and *exits 0* — you only notice from the output. Launch OpenMPI jobs with **`mpirun`** (it reads the Slurm allocation).
-- Measured fabric baseline (004, untuned single pair, orfoz↔orfoz): 5.2 µs one-way latency, 17.3 GB/s with 64 MiB messages.
+- Measured fabric (009, OSU 7.4, orfoz↔orfoz): **1.35 µs** one-way latency, **29.9 GB/s** unidirectional / **56.7 GB/s** bidirectional. (004's naive blocking ping-pong saw 5.2 µs / 17.3 GB/s — technique, not hardware.)
+- **Module trees differ across orfoz nodes** — `lib/openmpi/5.0.4` existed on orfoz[204-205] but not orfoz[324-325]. Never hardcode module versions; discover at runtime: `module -t avail 2>&1 | grep -E "^lib/openmpi/5" | sort -V | tail -1`.
+
+## Software stack notes
+
+- **PyTorch on the P100s**: torch 2.7.1+cu118 still ships sm_60 kernels — `pip install torch --index-url https://download.pytorch.org/whl/cu118` into a venv on scratch just works. fp16 gives no speedup on sm_60 (no tensor cores); it's a memory-capacity tool.
+- Login nodes have outbound internet (pip, wget fine); put venvs and pip installs on scratch with `--no-cache-dir`, not in home.
+- Grafana's **USER DASHBOARD → User Jobs** shows per-job load/memory for your username with zero setup — check it before hand-profiling anything.
 
 ## Storage
 
