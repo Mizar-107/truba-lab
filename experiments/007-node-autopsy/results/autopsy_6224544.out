@@ -1,0 +1,14 @@
+partition: orfoz
+node:      orfoz205
+CPU(s):                          112
+Model name:                      Intel(R) Xeon(R) Platinum 8480+
+Thread(s) per core:              1
+Socket(s):                       2
+NUMA node(s):                    8
+               total        used        free      shared  buff/cache   available
+Mem:           251Gi        41Gi       206Gi       5.5Gi        10Gi       209Gi
+ib: mlx5_0 400 Gb/sec (4X NDR)
+ib: mlx5_1 40 Gb/sec (4X QDR)
+ib: mlx5_2 40 Gb/sec (4X QDR)
+Rocky Linux release 9.2 (Blue Onyx)
+5.14.0-284.30.1.el9_2.x86_64

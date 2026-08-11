@@ -1,0 +1,14 @@
+partition: barbun-cuda
+node:      barbun121
+CPU(s):                          40
+Model name:                      Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz
+Thread(s) per core:              1
+Socket(s):                       2
+NUMA node(s):                    2
+               total        used        free      shared  buff/cache   available
+Mem:           376Gi        35Gi       9.8Gi       3.4Gi       336Gi       340Gi
+ib: mlx5_0 100 Gb/sec (4X EDR)
+Tesla P100-PCIE-16GB, 16384 MiB, 565.57.01
+Tesla P100-PCIE-16GB, 16384 MiB, 565.57.01
+Rocky Linux release 9.2 (Blue Onyx)
+5.14.0-284.11.1.el9_2.x86_64

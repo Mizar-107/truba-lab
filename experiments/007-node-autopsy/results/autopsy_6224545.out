@@ -1,0 +1,13 @@
+partition: smp
+node:      orkinos1
+CPU(s):                          224
+Model name:                      Intel(R) Xeon(R) CPU E7-4850 v3 @ 2.20GHz
+Thread(s) per core:              1
+Socket(s):                       16
+NUMA node(s):                    16
+               total        used        free      shared  buff/cache   available
+Mem:           3.9Ti       163Gi       3.8Ti        24Gi        33Gi       3.8Ti
+ib: mlx5_0 56 Gb/sec (4X FDR)
+ib: mlx5_1 56 Gb/sec (4X FDR)
+Rocky Linux release 9.2 (Blue Onyx)
+5.14.0-284.11.1.el9_2.x86_64
