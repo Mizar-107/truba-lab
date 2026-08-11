@@ -1,0 +1,7 @@
+nodes: orfoz[204-205]
+Merhaba from 112 ranks
+  node orfoz204     : 56 ranks (first: rank 0)
+  node orfoz205     : 56 ranks (first: rank 56)
+ping-pong rank 0 <-> rank 111:
+  latency  (8 B, one-way)   : 5.19 us
+  bandwidth (64 MiB msgs)   : 17.33 GB/s

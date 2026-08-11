@@ -11,6 +11,7 @@ Part playground, part field guide. The official docs leave gaps (submit-filter r
 | [001](experiments/001-hello/) | Hello world, CPU + GPU | End-to-end pipeline proven. CPU job on `debug` (Xeon Gold 6148), GPU job on `barbun-cuda` (Tesla P100 16GB, CUDA 12.7). Three undocumented submit-filter rules discovered along the way. |
 | [002](experiments/002-pi-scaling/) | π strong scaling, 1→112 threads | **110.2× speedup** on one full orfoz node (2× Xeon Platinum 8480+, 98.3% efficiency, 22.8 GSamples/s) — near-perfect linear. `tools/` field-tested in the process. |
 | [003](experiments/003-mandelbrot-array/) | Mandelbrot as a job array | 50-task array + `afterok` stitcher → seamless 2800×2000 render for ~50 core-seconds. Fan-out/fan-in with nothing but Slurm. |
+| [004](experiments/004-mpi-hello/) | MPI across 2 nodes + fabric ping-pong | One 112-rank world on orfoz[204-205]: **5.2 µs latency, 17.3 GB/s** inter-node, untuned. Found two launch traps: batch shells need `-l` for modules, and `srun` (no PMIx) silently launches singletons — use `mpirun`. |
 | [007](experiments/007-node-autopsy/) | Node autopsy, all partitions | Hardware table of every queue: orfoz on 400Gb NDR, a 16-socket 3.9TiB `smp` node, and the complete per-queue core-rule ledger. (2 queues still pending.) |
 
 Candidates queued in [experiments/BACKLOG.md](experiments/BACKLOG.md).

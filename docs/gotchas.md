@@ -40,6 +40,12 @@ Interconnect (from 007): orfoz nodes sit on **NDR 400 Gb/s** InfiniBand; barbun/
 - **Don't pipe into ssh for key installation** — `type key.pub | ssh … "cat >> authorized_keys"` hangs: with stdin redirected, the password prompt never renders. Use the two-step `scp` + `ssh` from [setup.md](setup.md).
 - **Turkish characters in paths** (`Masaüstü`) mangle across encoding boundaries in automation. From WSL, glob past them: `/mnt/c/Users/<you>/OneDrive/Masa*/...` — but beware: the same glob can *intermittently* fail or resolve to a different Unicode normalization of the folder (NFC vs NFD duplicates are a OneDrive specialty). Rule of thumb: **WSL for ssh/scp, PowerShell for Windows-side file operations** — don't write into Windows paths from WSL when it matters.
 
+## Batch-script traps
+
+- **`module: command not found` inside sbatch scripts** — batch shells are not login shells here. Start every job script that loads modules with **`#!/bin/bash -l`**.
+- **`srun` + OpenMPI = 112 independent singletons.** This Slurm has no PMIx plugin (`srun --mpi=list` lacks `pmix`), so `srun ./yourmpi` starts N separate 1-rank worlds and *exits 0* — you only notice from the output. Launch OpenMPI jobs with **`mpirun`** (it reads the Slurm allocation).
+- Measured fabric baseline (004, untuned single pair, orfoz↔orfoz): 5.2 µs one-way latency, 17.3 GB/s with 64 MiB messages.
+
 ## Storage
 
 - Home and scratch are high-performance filesystems, **not backup** — TRUBA states data safety is your problem. Assume scratch can be purged; pull anything you care about off the cluster.
