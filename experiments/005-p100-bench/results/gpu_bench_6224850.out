@@ -1,0 +1,23 @@
+device: Tesla P100-PCIE-16GB
+capability: sm_60
+memory: 15.9 GiB
+torch: 2.7.1+cu118 (cuda 11.8)
+
+=== matmul TFLOPS (20 reps) ===
+fp32 2048x2048: 6.69 TFLOPS
+fp32 4096x4096: 7.82 TFLOPS
+fp32 8192x8192: 8.62 TFLOPS
+fp16 2048x2048: 7.70 TFLOPS
+fp16 4096x4096: 8.39 TFLOPS
+fp16 8192x8192: 7.72 TFLOPS
+
+=== memory bandwidth ===
+device copy (read+write): 537.2 GB/s
+H2D over PCIe (pinned): 12.3 GB/s
+
+=== training loop (MLP, synthetic data) ===
+step 0: loss 2.3080
+step 100: loss 2.2974
+step 200: loss 2.2821
+step 299: loss 2.2676
+training: 186.7 steps/s, 95571 samples/s
